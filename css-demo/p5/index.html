@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择框</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        var data =[{
+            province: "北京",
+            city:["北京"] 
+        },
+        {
+            province: "河北",
+            cities:["秦皇岛","邯郸"]
+        }]
+        var rootDiv = document.getElementById("app")
+        for(var province of data){
+            var provinceDiv = document.createElement("div")
+            provinceDiv.addEventListener('click',()=>{
+                console.log(province)
+                console.log(provinceDiv.parentElement)
+            })
+            provinceDiv.innerHTML = province.province
+            rootDiv.appendChild(provinceDiv)
+        }
+    </script>
+</body>
+</html>

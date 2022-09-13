@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: black;
+}
+
+.text-box {
+    width: 600px;
+    height: 60px;
+    color: white;
+
+    line-height: 60px;
+    font-size: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.circle-cover {
+    width: 700px;
+    height: 200px;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    top: -70px;
+    box-shadow: 0 0 100px 10px green;
+    animation: move-over 8s ease-in-out infinite;
+}
+
+
+@keyframes move-over {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 0;
+    }
+}

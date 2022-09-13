@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+</head>
+<body>
+    <div class="calculator">
+        <div class="user-input">
+            <input type="text" id="input-region"></input>
+        </div>
+        <div class="result">
+            您的结果为：<span id="result">0</span>
+        </div>
+        <button id = 'calculate'>计算</button>
+
+    </div>
+
+    <script>
+
+        function cal2Num(a,b,op){
+            console.log(a,b,op)
+            switch(op){
+                case '+':
+                    return a+b
+                case '-':
+                    return a-b
+                case '*':
+                    return a*b
+                case '/':
+                    return a/b
+            }
+        }
+        // console.log(cal2Num(1,2,'+'))
+        var inputElement = document.getElementById("input-region")
+        var resultElement = document.getElementById("result")
+        document.getElementById('calculate').addEventListener("click",()=>{
+            // 获取用户的输入值
+            var inputString=inputElement.value
+            // console.log(inputString)
+            var length = inputString.length
+            var i = 0
+            // 定义操作数栈和符号栈
+            var number=[]
+            var option=[]
+            while(i<length){
+                var c = inputString.charAt(i)
+                // 输入的是数字d
+                if(c<='9'&&c>='0'){
+                    var start = i
+                    while((c<='9'&&c>='0')||c==='.'){
+                        i++
+                        if(i===length) break
+                        c=inputString.charAt(i)
+                    }
+                    // 这个地方还可以对用户输入的合法性判断，不符合抛出异常，这里省略
+                    number.push(Number(inputString.substring(start,i)))
+                }else if(c==='('){
+                    option.push(c)
+                    i++
+                }else if(c===')'){
+                    if(option[option.length-1]==='('){
+                        option.pop()
+                        i++
+                    }else{
+                        var b = number.pop()
+                        var a = number.pop()
+                        var res = cal2Num(a,b,option.pop())
+                        number.push(res)
+                    }
+                }else if(c==='+'||c==='-'){
+                    var op = option[option.length-1]
+                    if(op!=='('&&op!==undefined){
+                        var b = number.pop()
+                        var a = number.pop()
+                        var res = cal2Num(a,b,option.pop())
+                        number.push(res)
+                    }else{
+                        option.push(c)
+                        i++
+                    }
+                }else if(c==='*'||c=='/'){
+                    var op = option[option.length-1]
+                    if((op==='*'||op==='/')&&op!==undefined){
+                        var b = number.pop()
+                        var a = number.pop()
+                        var res = cal2Num(a,b,option.pop())
+                        number.push(res)
+                    }else{
+                        option.push(c)
+                        i++
+                    }
+                }else{
+                    // 当有其他字符时，输入异常
+                    number=[]
+                    option=[]
+                    break
+                }
+                console.log(number,option)
+            }
+
+            while(option.length>0){
+                var b = number.pop()
+                var a = number.pop()
+                var res = cal2Num(a,b,option.pop())
+                number.push(res)
+            }
+            if(!Number.isNaN(number[0])&&number.length===1){
+                resultElement.innerHTML=number[0]
+            }else{
+                alert('表达式错误')
+            }
+        })
+        
+    </script>
+</body>
+</html>

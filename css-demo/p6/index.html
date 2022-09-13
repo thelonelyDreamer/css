@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浮动</title>
+</head>
+<body>
+    <style>
+        .piece{
+            width: 100%;
+            color: red;
+        }
+        .left{
+            float: left;
+        }
+        
+        .right{
+            height: 100px;
+        }
+        .piece::after{
+            content: '';
+            display: block;
+            float: both;
+            height: 0;
+            visibility: hidden;
+        }
+    </style>
+    <div>
+        <div class="part1 piece">
+            <div class="left">left1</div>
+            <div class="right">right1</div>
+        </div>
+        <div class="part2 piece">
+            <div class="left">left2</div>
+            <div class="right">right2</div>
+        </div>
+    </div>
+    
+</body>
+</html>

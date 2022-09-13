@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地址选择</title>
+</head>
+<body>
+    <div id="address"></div>
+    <style>
+        .line{
+            display: inline;
+        }
+    </style>
+    <script>
+        // 1. 首先获取后端数据
+        function getProvinceAndCity(){
+            return [
+                {
+                    id: '01',
+                    name: '北京',
+                    city: [
+                        {
+                            id:'01',
+                            name:'北京',
+                            count: 0,
+                        },
+                    ]
+                },
+                {
+                    id: '02',
+                    name: '河北',
+                    city:[
+                        {
+                            id:'01',
+                            name:'石家庄',
+                            count: 0
+                        },
+                        {
+                            id:'02',
+                            name:'秦皇岛',
+                            count: 0,
+                        }
+                    ]
+                },
+                {
+                    id:'03',
+                    name: '江苏',
+                    city: [
+                        {
+                            id:'01',
+                            name:'南京',
+                            count:0
+                        }
+                    ]
+                }
+            ]
+        }
+        var data = getProvinceAndCity()
+        // 2. 获取需要渲染的节点
+        var address = document.getElementById("address")
+        // by the way,可以根据业务需求创建一个对象保存用户的选择
+        // 3. 为每个省创建div
+        for (var province of data){
+            var provinceDiv = document.createElement('div')
+            // 为该元素添加样式 待会再做
+
+            var leftDiv = document.createElement('div')
+            leftDiv.className='line'
+            // 左边的元素添加单选框，添加样式，并添加点击事件
+            var radio = document.createElement('div')
+            radio.innerHTML= province.name
+            radio.addEventListener('click',function(){
+                // 这里可以拿到province对象
+                console.log(this)
+            })
+            leftDiv.appendChild(radio)
+            
+            // 右边的部分
+            var rightDiv = document.createElement('div')
+            rightDiv.className='line'
+            for(var city of province.city){
+                var piece = document.createElement('div')
+                piece.innerHTML=city.name
+                piece.className='line'
+                piece.addEventListener('click',function(){
+                    // 可以拿到省份信息和城市信息，可以通过ajax请求数据，
+                    console.log(province)
+                    console.log(city) 
+                    // 获得了当前节点，可以根据返回的数据添加子节点，注意添加或者某些元素的样式,获取父元素，或者父元素的父元素
+                    console.log(this)
+                })
+                rightDiv.appendChild(piece)
+            }
+            // 左右部分添加进一个省份的div
+            provinceDiv.appendChild(leftDiv)
+            provinceDiv.appendChild(rightDiv)
+            // 所有身省份的div
+            address.appendChild(provinceDiv)
+        }
+    </script>
+
+</body>
+</html>
